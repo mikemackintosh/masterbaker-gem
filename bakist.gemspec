@@ -1,0 +1,43 @@
+# -*- encoding: utf-8 -*-
+# From the lovely work of "Matthew Kocher", "Doc Ritezel"
+# who can be found at "kocher@gmail.com", "ritezel@gmail.com"
+#
+# Ported from Soloist
+#
+$:.push File.expand_path("../lib", __FILE__)
+require "bakist/version"
+
+Gem::Specification.new do |s|
+  s.name        = "Bakist"
+  s.version     = Bakist::VERSION
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = ["Mike Mackintosh"]
+  s.email       = ["mike.mackintosh@gmail.com"]
+  s.homepage    = "http://github.com/mikemackintosh/bakist"
+  s.summary     = "Bakist is a simple way of running chef-solo"
+  s.description = "Makes running chef-solo easy."
+
+  s.rubyforge_project = "bakist"
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+
+  s.license = 'MIT'
+
+  s.add_dependency "chef"
+  s.add_dependency "librarian-chef"
+  s.add_dependency "thor"
+  s.add_dependency "hashie", "~> 2.0"
+  s.add_dependency "net-ssh"
+  s.add_dependency "awesome_print"
+
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "guard-bundler"
+  s.add_development_dependency "guard-shell"
+  s.add_development_dependency "rb-fsevent"
+  s.add_development_dependency "terminal-notifier-guard"
+  s.add_development_dependency "gem-release"
+end
