@@ -66,13 +66,15 @@ module Bakist
 
         if user_config_path
           say 'Bakist is Fetching User-Specific Cookbooks', :green, true, false
-          Dir.chdir(File.dirname(user_config_path)) do
-            Librarian::Chef::Cli.with_environment do
-              libchef = Librarian::Chef::Cli.new
-              libchef.options = {:path => '~/'}
-              puts libchef.options.inspect
-              abort
+          begin
+            Dir.chdir(File.dirname(user_config_path)) do
+              Librarian::Chef::Cli.with_environment do
+                libchef = Librarian::Chef::Cli.new.install
+              end
             end
+          rescue
+            say 'Error getting user-specific cookbooks, scratching.', :red
+            abort
           end
         end
 
@@ -86,7 +88,7 @@ module Bakist
         end.tap do |config|
           config.merge!(user_config) if user_config_path
           config.merge!(shop_config) if shop_config_path
-          config.merge!(shop_managed_user_config) if shop_managed_user_config_path
+          #config.merge!(shop_managed_user_config) if shop_managed_user_config_path
         end
       end
     end
