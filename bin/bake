@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 $:.push File.expand_path("../../lib", __FILE__)
-require "bakery"
-Bakery::CLI.start
+require "bakist"
+Bakist::CLI.start
