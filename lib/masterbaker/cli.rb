@@ -1,5 +1,5 @@
 require "librarian/chef/cli"
-require "bakist/remote_config"
+require "masterbaker/remote_config"
 require "awesome_print"
 require "thor"
 
@@ -8,7 +8,7 @@ class Thor::Shell::Color
 
       if prefix
         #super '★', :green, false
-        super ' Bakist ', :white, false
+        super ' Masterbaker ', :white, false
         #super '★', :green, false
         super ':: ', :white, false
       end
@@ -17,10 +17,10 @@ class Thor::Shell::Color
     end
 end
 
-module Bakist
+module Masterbaker
 
     class CLI < Thor
-    attr_writer :bakist_config
+    attr_writer :masterbaker_config
     default_task :chef
 
 
@@ -29,10 +29,10 @@ module Bakist
     method_option :identity, :aliases => "-i", :desc => "The SSH identity file"
     def chef
       #begin
-        say 'Bakist is Fetching Cookbooks', :green, true, false
+        say 'Masterbaker is Fetching Cookbooks', :green, true, false
         install_cookbooks if cheffile_exists?        
-        say 'Bakist is Preparing to Bake', :green, true, false
-        bakist_config.run_chef
+        say 'Masterbaker is Preparing to Bake', :green, true, false
+        masterbaker_config.run_chef
       #rescue Exception => msg 
       #  say msg.backtrace.inspect  
       #  say ' Your Bakery files were not found. Please make sure ', :RED, false
@@ -46,13 +46,13 @@ module Bakist
     method_option :remote, :aliases => "-r", :desc => "Run recipes on user@host"
     method_option :identity, :aliases => "-i", :desc => "The SSH identity file"
     def run_recipe(*recipes)
-      bakist_config.royal_crown.recipes = recipes
+      masterbaker_config.royal_crown.recipes = recipes
       chef
     end
 
-    desc "config", "Dumps configuration data for Bakist"
+    desc "config", "Dumps configuration data for Masterbaker"
     def config
-      Kernel.ap(bakist_config.as_node_json)
+      Kernel.ap(masterbaker_config.as_node_json)
     end
 
     no_tasks do
@@ -65,7 +65,7 @@ module Bakist
         end
 
         if user_config_path
-          say 'Bakist is Fetching User-Specific Cookbooks', :green, true, false
+          say 'Masterbaker is Fetching User-Specific Cookbooks', :green, true, false
           begin
             Dir.chdir(File.dirname(user_config_path)) do
               Librarian::Chef::Cli.with_environment do
@@ -80,11 +80,11 @@ module Bakist
 
       end
 
-      def bakist_config
-        @bakist_config ||= if options[:remote]
-          Bakist::RemoteConfig.from_file(config_path, remote)
+      def masterbaker_config
+        @masterbaker_config ||= if options[:remote]
+          Masterbaker::RemoteConfig.from_file(config_path, remote)
         else
-          Bakist::Config.from_file(config_path)
+          Masterbaker::Config.from_file(config_path)
         end.tap do |config|
           config.merge!(user_config) if user_config_path
           config.merge!(shop_config) if shop_config_path
@@ -95,22 +95,22 @@ module Bakist
 
     private
     def shop_config
-      Bakist::Config.from_file(shop_config_path)
+      Masterbaker::Config.from_file(shop_config_path)
     end    
 
     def user_config
-      Bakist::Config.from_file(user_config_path)
+      Masterbaker::Config.from_file(user_config_path)
     end
 
     def shop_managed_user_config
-      Bakist::Config.from_file(shop_managed_user_config_path)
+      Masterbaker::Config.from_file(shop_managed_user_config_path)
     end
 
     def remote
       @remote ||= if options[:identity]
-        Bakist::Remote.from_uri(options[:remote], options[:identity])
+        Masterbaker::Remote.from_uri(options[:remote], options[:identity])
       else
-        Bakist::Remote.from_uri(options[:remote])
+        Masterbaker::Remote.from_uri(options[:remote])
       end
     end
 
@@ -132,7 +132,7 @@ module Bakist
     end
 
     def user_config_path
-      user_config_path = File.expand_path("~/.bakist/bakistrc")
+      user_config_path = File.expand_path("~/.masterbaker/masterbakerrc")
       if File.exists?(user_config_path)
         @user_config_path ||= user_config_path
       end

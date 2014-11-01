@@ -1,6 +1,6 @@
 require "hashie"
 
-module Bakist
+module Masterbaker
   class RoyalCrown < Hashie::Trash
     property :path
     property :recipes, :default => []

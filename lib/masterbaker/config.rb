@@ -1,13 +1,13 @@
-require "bakist/royal_crown"
+require "masterbaker/royal_crown"
 require "tempfile"
 
-module Bakist
+module Masterbaker
   class Config
     attr_writer :solo_rb_path, :node_json_path
     attr_reader :royal_crown
 
     def self.from_file(royal_crown_path)
-      rc = Bakist::RoyalCrown.from_file(royal_crown_path)
+      rc = Masterbaker::RoyalCrown.from_file(royal_crown_path)
       new(rc)
     end
 

@@ -1,12 +1,12 @@
-require "bakist/config"
-require "bakist/remote"
+require "masterbaker/config"
+require "masterbaker/remote"
 
-module Bakist
+module Masterbaker
   class RemoteConfig < Config
     attr_reader :remote
 
     def self.from_file(royal_crown_path, remote)
-      rc = Bakist::RoyalCrown.from_file(royal_crown_path)
+      rc = Masterbaker::RoyalCrown.from_file(royal_crown_path)
       new(rc, remote)
     end
 

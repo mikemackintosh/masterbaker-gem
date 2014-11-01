@@ -5,19 +5,19 @@
 # Ported from Soloist
 #
 $:.push File.expand_path("../lib", __FILE__)
-require "bakist/version"
+require "masterbaker/version"
 
 Gem::Specification.new do |s|
-  s.name        = "Bakist"
-  s.version     = Bakist::VERSION
+  s.name        = "masterbaker"
+  s.version     = Masterbaker::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Mike Mackintosh"]
   s.email       = ["mike.mackintosh@gmail.com"]
-  s.homepage    = "http://github.com/mikemackintosh/bakist"
-  s.summary     = "Bakist is a simple way of running chef-solo"
+  s.homepage    = "http://github.com/mikemackintosh/masterbaker"
+  s.summary     = "Masterbaker is a simple way of running chef-solo"
   s.description = "Makes running chef-solo easy."
 
-  s.rubyforge_project = "bakist"
+  s.rubyforge_project = "masterbaker"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

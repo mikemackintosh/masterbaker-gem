@@ -2,7 +2,7 @@ require "net/ssh"
 require "shellwords"
 require "etc"
 
-module Bakist
+module Masterbaker
   class RemoteError < RuntimeError; end
 
   class Remote
