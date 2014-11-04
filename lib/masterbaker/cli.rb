@@ -69,7 +69,7 @@ module Masterbaker
           begin
             Dir.chdir(File.dirname(user_config_path)) do
               Librarian::Chef::Cli.with_environment do
-                libchef = Librarian::Chef::Cli.new.install
+                Librarian::Chef::Cli.new.install
               end
             end
           rescue

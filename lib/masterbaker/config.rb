@@ -43,7 +43,7 @@ module Masterbaker
     end
 
     def cookbook_paths
-      ([royal_crown_cookbooks_directory] + compiled.cookbook_paths).map do |path|
+      ([royal_crown_cookbooks_directory] + [masterbaker_cookbooks_directory] + compiled.cookbook_paths).map do |path|
         File.expand_path(path, royal_crown_path)
       end.uniq.select do |path|
         File.directory?(path)
@@ -100,6 +100,10 @@ module Masterbaker
 
     def root?
       Process.uid == 0
+    end
+
+    def masterbaker_cookbooks_directory
+      File.expand_path("cookbooks", royal_crown_path.gsub(/\.bakery/, '.masterbaker'))
     end
 
     def royal_crown_cookbooks_directory
