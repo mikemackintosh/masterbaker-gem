@@ -7,30 +7,34 @@ Masterbaker was designed with users in mind, allowing a global runlist as well a
 Using Masterbaker
 -------------
 
-1. You'll need to have Masterbaker installed:
+1. First, agree to XCode License:
+
+        $sudo xcodebuild -license
+
+2. You'll need to have Masterbaker installed:
 
         $ gem install masterbaker
 
-2. You'll need a `Cheffile` in your home directory that points Librarian to all the cookbooks you've included:
+3. You'll need a `Cheffile` in your home directory that points Librarian to all the cookbooks you've included:
 
         $ cat ~/.bakery/Cheffile // or ~/.masterbaker/masterbakerrc
         site "http://community.opscode.com/api/v1"
         cookbook "pivotal_workstation",
                  :git => "https://github.com/pivotal/pivotal_workstation"
 
-3. You'll need to create a `~/.bakery/bakeryrc` or `~/.masterbaker/masterbakerrc` file in your home directory to tell Chef which recipes to converge:
+4. You'll need to create a `~/.bakery/bakeryrc` or `~/.masterbaker/masterbakerrc` file in your home directory to tell Chef which recipes to converge:
 
         $ cat /Users/pivotal/.bakery/bakeryrc
         recipes:
           - pivotal_workstation::default
           - pivotal_workstation::sublime_text
 
-4. It's always a good idea to see what is found and will be installed on next run using `config`:
+5. It's always a good idea to see what is found and will be installed on next run using `config`:
 
         $ bake config
 
 
-4. You'll need to run `masterbaker` for anything to happen:
+6. You'll need to run `masterbaker` for anything to happen:
 
         $ bake
 
